@@ -15,22 +15,24 @@ defmodule StateMachine do
 
   defmacro transition(from, to) do
     quote bind_quoted: [from: from, to: to] do
-      {_, state_transitions} = Map.get_and_update(
-        @state_transitions,
-        from,
-        fn
-          nil ->
-            {nil, [to]}
+      {_, state_transitions} =
+        Map.get_and_update(
+          @state_transitions,
+          from,
+          fn
+            nil ->
+              {nil, [to]}
 
-          current_value ->
-            {current_value, [to | current_value]}
-        end
-      )
+            current_value ->
+              {current_value, [to | current_value]}
+          end
+        )
+
       @state_transitions state_transitions
     end
   end
 
-  defmacro valid?(from, to) do
+  defmacro valid_transition?(from, to) do
     quote bind_quoted: [from: from, to: to] do
       if is_atom(from) or is_binary(from) do
         to in Map.get(@state_transitions, from, [])
@@ -40,4 +42,3 @@ defmodule StateMachine do
     end
   end
 end
-

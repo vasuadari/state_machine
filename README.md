@@ -31,7 +31,7 @@ defmodule EmailUpdater do
   use Email
 
   def update(email, attrs) do
-    if valid?(email, attrs) do
+    if valid_transition?(email, attrs) do
       #...
     end
   end
