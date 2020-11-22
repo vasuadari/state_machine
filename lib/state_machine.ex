@@ -32,10 +32,11 @@ defmodule StateMachine do
 
   defmacro valid?(from, to) do
     quote bind_quoted: [from: from, to: to] do
-      from_status = from[:status]
-      to_status = to[:status]
-
-      to_status in Map.get(@state_transitions, from_status, [])
+      if is_atom(from) or is_binary(from) do
+        to in Map.get(@state_transitions, from, [])
+      else
+        to[:status] in Map.get(@state_transitions, from[:status], [])
+      end
     end
   end
 end
