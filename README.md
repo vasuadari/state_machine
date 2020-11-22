@@ -4,13 +4,12 @@ A tiny package which adds state machine feature to your module.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `state_machine` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `state_machine` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:state_machine, "~> 0.1.0"}
+    {:state_machine, github: "vasuadari/state_machine"}
   ]
 end
 ```
