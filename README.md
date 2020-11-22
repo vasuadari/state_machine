@@ -1,6 +1,6 @@
 # StateMachine
 
-**TODO: Add description**
+A tiny package which adds state machine feature to your module.
 
 ## Installation
 
@@ -15,7 +15,26 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/state_machine](https://hexdocs.pm/state_machine).
+## Usage
 
+```elixir
+defmodule Email do
+  use StateMachine
+
+  state do
+    transition :created, :queued
+    transition :queued, :failed
+    transition :queued, :sent
+  end
+end
+
+defmodule EmailUpdater do
+  use Email
+
+  def update(email, attrs) do
+    if valid?(email, attrs) do
+      #...
+    end
+  end
+end
+```
